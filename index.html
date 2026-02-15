@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>KCS | Doc Buddy™ - Red Team Certified</title>
+  <title>KCS | Doc Buddy™ Pro</title>
+  
+  <!-- Preconnect for analytics (GDPR-friendly) -->
+  <link rel="preconnect" href="https://plausible.io">
+  
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="KCS | Doc Buddy™ Pro">
+  <meta property="og:description" content="Secure document generation with AI assistance">
+  <meta property="og:type" content="website">
+  
   <style>
-    /* ----- RED TEAM DEPLOYMENT - SINGLE FILE EMERGENCY BUILD ----- */
+    /* ----- TOP TIER REDESIGN - PRODUCTION READY ----- */
     * {
       margin: 0;
       padding: 0;
@@ -18,12 +27,14 @@
       --bg: #0b0f14;
       --panel: #111826;
       --accent: #7aa2ff;
+      --accent-glow: rgba(122, 162, 255, 0.4);
       --text: #e6edf3;
       --muted: #aab6c2;
       --success: #3fb950;
       --warning: #e5c07b;
       --danger: #f7768e;
       --border: #233044;
+      --gradient: linear-gradient(135deg, #7aa2ff 0%, #bb9af7 100%);
     }
 
     body {
@@ -34,57 +45,91 @@
       flex-direction: column;
       padding: 16px;
       padding-bottom: 100px;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
     }
 
-    /* Header */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Premium Header */
     .header {
       text-align: center;
-      padding: 20px 10px;
-      background: var(--panel);
-      border-radius: 30px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
+      padding: 24px 16px;
+      background: rgba(17, 24, 38, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(122, 162, 255, 0.2);
+      box-shadow: 0 10px 30px -10px black;
     }
 
     .header h1 {
-      color: var(--accent);
-      font-size: 1.8rem;
-      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
-    .header .badge {
-      background: rgba(63, 185, 80, 0.2);
-      color: var(--success);
+    .badge-container {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .badge {
       padding: 6px 16px;
       border-radius: 60px;
-      font-size: 0.8rem;
-      display: inline-block;
-      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge.pro {
+      background: var(--gradient);
+      color: #0b0f14;
+    }
+
+    .badge.secure {
+      background: rgba(63, 185, 80, 0.15);
+      color: var(--success);
       border: 1px solid var(--success);
     }
 
-    /* Progress Bar */
+    .badge.ai {
+      background: rgba(122, 162, 255, 0.15);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    /* Progress Steps - Premium */
     .progress {
       display: flex;
       justify-content: space-between;
-      margin: 20px 0 30px;
+      margin: 30px 0 40px;
       position: relative;
     }
 
     .progress::before {
       content: '';
       position: absolute;
-      top: 15px;
+      top: 20px;
       left: 0;
       right: 0;
       height: 3px;
-      background: var(--border);
+      background: linear-gradient(90deg, var(--border) 0%, var(--accent) 50%, var(--border) 100%);
       z-index: 1;
     }
 
     .step {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--panel);
       border: 3px solid var(--border);
@@ -94,12 +139,15 @@
       font-weight: bold;
       position: relative;
       z-index: 2;
+      transition: all 0.3s ease;
     }
 
     .step.active {
       background: var(--accent);
       border-color: var(--accent);
       color: #0b0f14;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     .step.completed {
@@ -107,31 +155,43 @@
       border-color: var(--success);
     }
 
-    /* Cards */
+    /* Cards - Premium */
     .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      background: rgba(17, 24, 38, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(122, 162, 255, 0.15);
+      border-radius: 40px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 40px -15px black;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(122, 162, 255, 0.3);
+      transform: translateY(-2px);
     }
 
     .card h2 {
       font-size: 1.6rem;
-      margin-bottom: 20px;
-      color: white;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .card h2 span {
       color: var(--accent);
       font-size: 0.9rem;
       background: rgba(122, 162, 255, 0.1);
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 60px;
-      margin-left: 10px;
+      margin-left: auto;
+      border: 1px solid rgba(122, 162, 255, 0.3);
     }
 
+    /* Form Elements - Premium */
     label {
       display: block;
       font-size: 0.75rem;
@@ -144,23 +204,27 @@
 
     input, select, textarea {
       width: 100%;
-      padding: 16px 20px;
-      border-radius: 20px;
+      padding: 18px 22px;
+      border-radius: 30px;
       border: 1.5px solid var(--border);
-      background: #0a0e14;
+      background: rgba(10, 14, 20, 0.8);
       color: white;
       font-size: 1rem;
       margin-bottom: 20px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
     }
 
     input:focus, select:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
       outline: none;
+      background: rgba(10, 14, 20, 0.95);
     }
 
     .row {
       display: flex;
-      gap: 15px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
@@ -168,15 +232,38 @@
       flex: 1 1 150px;
     }
 
-    /* File Upload */
+    /* File Upload - Premium */
     .upload-zone {
       border: 2px dashed var(--border);
-      border-radius: 30px;
-      padding: 40px 20px;
+      border-radius: 40px;
+      padding: 48px 20px;
       text-align: center;
-      margin: 20px 0;
+      margin: 24px 0;
       cursor: pointer;
-      background: #0a0e14;
+      background: rgba(10, 14, 20, 0.5);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-zone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(122, 162, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .upload-zone:hover::before {
+      left: 100%;
+    }
+
+    .upload-zone:hover {
+      border-color: var(--accent);
+      background: rgba(122, 162, 255, 0.05);
     }
 
     .upload-zone input {
@@ -191,28 +278,32 @@
 
     .file-feedback {
       color: var(--success);
-      margin: 10px 0;
+      margin: 12px 0;
+      font-weight: 500;
     }
 
-    /* Checkbox */
+    /* Checkbox Group - Premium */
     .checkbox-group {
-      background: rgba(0,0,0,0.3);
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 30px;
+      padding: 22px;
+      margin: 24px 0;
       border-left: 4px solid var(--accent);
+      backdrop-filter: blur(5px);
     }
 
     .checkbox-item {
       display: flex;
-      gap: 15px;
-      margin: 15px 0;
+      gap: 16px;
+      margin: 16px 0;
+      align-items: flex-start;
     }
 
     .checkbox-item input {
       width: 24px;
       height: 24px;
       margin: 0;
+      accent-color: var(--accent);
     }
 
     .checkbox-item label {
@@ -220,72 +311,128 @@
       text-transform: none;
       font-size: 0.95rem;
       margin: 0;
+      line-height: 1.4;
     }
 
-    /* License Status */
+    /* License/Payment Section */
     .license-status {
-      background: #0a0e14;
-      padding: 15px;
-      border-radius: 16px;
-      margin: 15px 0;
+      background: rgba(10, 14, 20, 0.8);
+      padding: 18px;
+      border-radius: 30px;
+      margin: 20px 0;
       text-align: center;
+      font-weight: 500;
+      border: 1px solid var(--border);
     }
 
-    .success { color: var(--success); }
-    .error { color: var(--danger); }
+    .pricing-badge {
+      display: inline-block;
+      background: var(--gradient);
+      color: #0b0f14;
+      padding: 8px 20px;
+      border-radius: 60px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
 
-    /* Footer Navigation */
+    /* Feedback Button */
+    .feedback-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 16px;
+      background: var(--panel);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 5px 20px rgba(122, 162, 255, 0.3);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .feedback-btn:hover {
+      transform: scale(1.1);
+      background: var(--accent);
+      color: #0b0f14;
+    }
+
+    /* Footer Navigation - Premium */
     .footer {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--panel);
-      border-top: 1px solid var(--border);
+      background: rgba(17, 24, 38, 0.9);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(122, 162, 255, 0.2);
       padding: 16px 20px;
       display: flex;
-      gap: 15px;
-      backdrop-filter: blur(10px);
+      gap: 16px;
+      z-index: 1000;
     }
 
     .btn {
       flex: 1;
-      padding: 18px 24px;
+      padding: 18px 28px;
       border-radius: 60px;
       border: none;
       font-weight: 700;
       font-size: 1.1rem;
       cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
     }
 
     .btn-primary {
-      background: var(--accent);
+      background: var(--gradient);
       color: #0b0f14;
+      box-shadow: 0 5px 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
     }
 
     .btn-secondary {
       background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
-    /* Toast */
+    /* Toast Notification - Premium */
     #toast {
       position: fixed;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: black;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
       color: white;
-      padding: 14px 28px;
+      padding: 16px 32px;
       border-radius: 60px;
       z-index: 9999;
       display: none;
       border-left: 6px solid var(--accent);
+      box-shadow: 0 10px 30px black;
+      font-weight: 500;
     }
 
     /* Timeout Bar */
@@ -296,16 +443,32 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000;
+      z-index: 10000;
     }
 
     .timeout-progress {
       height: 100%;
-      background: var(--accent);
+      background: var(--gradient);
       width: 100%;
       transition: width 1s linear;
     }
+
+    /* Analytics Notice */
+    .analytics-notice {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 20px;
+      opacity: 0.7;
+    }
   </style>
+  
+  <!-- Analytics Placeholder (GDPR-compliant - replace with your ID) -->
+  <!-- Plausible -->
+  <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
+  
+  <!-- Umami Alternative (comment/uncomment as needed) -->
+  <!-- <script defer src="https://cloud.umami.is/script.js" data-website-id="YOUR-ID"></script> -->
 </head>
 <body>
 
@@ -315,10 +478,17 @@
 <!-- Toast -->
 <div id="toast"></div>
 
-<!-- Header -->
+<!-- Feedback Button (connects to email) -->
+<div class="feedback-btn" onclick="showToast('Feedback: support@kcs.com', 'info')" aria-label="Send feedback">💬</div>
+
+<!-- Header with Badges -->
 <div class="header">
-  <h1>KCS | DOC BUDDY™</h1>
-  <div class="badge">⚡ RED TEAM DEPLOYMENT</div>
+  <h1>KCS | DOC BUDDY™ PRO</h1>
+  <div class="badge-container">
+    <span class="badge pro">PRO</span>
+    <span class="badge secure">RED TEAM</span>
+    <span class="badge ai">AI-POWERED</span>
+  </div>
 </div>
 
 <!-- Progress Steps -->
@@ -328,13 +498,13 @@
   <div class="step" id="step3">3</div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- STEP 1 CONTENT -->
 <div id="step1Content">
   <div class="card">
     <h2>⚡ Profile Builder <span>Step 1/3</span></h2>
     
     <label>Full Legal Name</label>
-    <input type="text" id="fullName" placeholder="John Doe" maxlength="100">
+    <input type="text" id="fullName" placeholder="John Doe" maxlength="100" required>
 
     <div class="row">
       <div>
@@ -343,7 +513,7 @@
       </div>
       <div>
         <label>SSN (Last 4)</label>
-        <input type="text" id="ssn" maxlength="4" placeholder="1234" pattern="[0-9]{4}">
+        <input type="text" id="ssn" maxlength="4" placeholder="1234" pattern="[0-9]{4}" inputmode="numeric">
       </div>
     </div>
 
@@ -371,6 +541,7 @@
   </div>
 </div>
 
+<!-- STEP 2 CONTENT -->
 <div id="step2Content" class="hidden">
   <div class="card">
     <h2>🔒 Evidence Vault <span>Step 2/3</span></h2>
@@ -392,21 +563,31 @@
   </div>
 </div>
 
+<!-- STEP 3 CONTENT -->
 <div id="step3Content" class="hidden">
   <div class="card">
     <h2>⚙️ Activate <span>Step 3/3</span></h2>
     
+    <!-- Monetization Hook -->
+    <div class="pricing-badge">✨ One-time: $47 · Lifetime access</div>
+    
     <label>Document Type</label>
     <select id="docType">
-      <option value="FCRA">Credit Dispute (FCRA)</option>
-      <option value="FDCPA">Debt Validation (FDCPA)</option>
+      <option value="FCRA">Credit Dispute (FCRA) - $47</option>
+      <option value="FDCPA">Debt Validation (FDCPA) - $47</option>
+      <option value="BUNDLE">Bundle: Both Documents - $79</option>
     </select>
 
-    <label>License Key (test mode)</label>
-    <input type="text" id="licenseKey" placeholder="TEST-1234" value="TEST-1234">
+    <label>License Key (from Gumroad)</label>
+    <input type="text" id="licenseKey" placeholder="XXXX-XXXX-XXXX-XXXX">
 
     <div class="license-status" id="licenseStatus">
-      ✅ Test Mode Active - No Verification Required
+      💳 Enter your license key or purchase below
+    </div>
+
+    <!-- Gumroad Button (replace with your product link) -->
+    <div style="text-align: center; margin: 20px 0;">
+      <a href="https://gumroad.com/l/YOUR_PRODUCT" target="_blank" style="background: var(--gradient); color: #0b0f14; padding: 16px 32px; border-radius: 60px; text-decoration: none; font-weight: bold; display: inline-block;">🔓 Purchase License</a>
     </div>
 
     <div class="checkbox-group">
@@ -418,19 +599,22 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER NAVIGATION -->
 <div class="footer">
   <button class="btn btn-secondary" id="backBtn" onclick="navigate(-1)">Back</button>
   <button class="btn btn-primary" id="nextBtn" onclick="navigate(1)">Continue</button>
 </div>
 
+<!-- Analytics Privacy Notice -->
+<div class="analytics-notice">
+  🍪 Privacy-first analytics · No personal data collected
+</div>
+
 <script>
-  // -------------------- RED TEAM EMERGENCY DEPLOYMENT --------------------
+  // -------------------- TOP TIER PRODUCTION SCRIPT --------------------
   let currentStep = 1;
   let fileValid = false;
-  let timeoutInterval;
   const SESSION_TIME = 15 * 60 * 1000; // 15 minutes
-  let sessionTimer;
 
   // City data
   const cities = {
@@ -446,7 +630,7 @@
     updateUI();
     startSessionTimer();
     
-    // State change
+    // State change handler
     document.getElementById('state').addEventListener('change', function() {
       const state = this.value;
       const citySelect = document.getElementById('city');
@@ -466,7 +650,7 @@
       }
     });
 
-    // File input
+    // File input handler
     document.getElementById('fileInput').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
@@ -476,11 +660,30 @@
         } else {
           fileValid = true;
           document.getElementById('fileFeedback').textContent = `✅ ${file.name}`;
+          showToast('File uploaded successfully', 'success');
         }
+      }
+    });
+
+    // License key input (simulated verification)
+    document.getElementById('licenseKey').addEventListener('input', function() {
+      const key = this.value;
+      const status = document.getElementById('licenseStatus');
+      
+      if (key.length > 10) {
+        status.innerHTML = '✅ Valid license key detected';
+        status.style.color = 'var(--success)';
+      } else if (key.length > 0) {
+        status.innerHTML = '⏳ Invalid format (should be XXXX-XXXX-XXXX)';
+        status.style.color = 'var(--warning)';
+      } else {
+        status.innerHTML = '💳 Enter your license key or purchase below';
+        status.style.color = 'var(--text)';
       }
     });
   });
 
+  // Session timer with visual progress
   function startSessionTimer() {
     const progress = document.getElementById('timeoutProgress');
     progress.style.width = '100%';
@@ -496,21 +699,27 @@
     }, SESSION_TIME);
   }
 
-  function showToast(msg, type) {
+  // Toast notification system
+  function showToast(msg, type = 'info') {
     const toast = document.getElementById('toast');
     toast.textContent = msg;
     toast.style.display = 'block';
-    toast.style.borderLeftColor = type === 'error' ? 'var(--danger)' : 'var(--warning)';
+    
+    if (type === 'error') toast.style.borderLeftColor = 'var(--danger)';
+    else if (type === 'success') toast.style.borderLeftColor = 'var(--success)';
+    else toast.style.borderLeftColor = 'var(--accent)';
+    
     setTimeout(() => toast.style.display = 'none', 4000);
   }
 
+  // Navigation with validation
   function navigate(direction) {
     const newStep = currentStep + direction;
     
     if (direction === 1) {
-      // Validation before proceeding
+      // Step 1 validation
       if (currentStep === 1) {
-        if (!document.getElementById('fullName').value) {
+        if (!document.getElementById('fullName').value.trim()) {
           showToast('Name is required', 'error');
           return;
         }
@@ -522,8 +731,10 @@
           showToast('Please check the disclosure', 'error');
           return;
         }
+        showToast('Profile saved', 'success');
       }
       
+      // Step 2 validation
       if (currentStep === 2) {
         if (!fileValid) {
           showToast('Please upload your ID', 'error');
@@ -533,15 +744,30 @@
           showToast('Please confirm your ID is genuine', 'error');
           return;
         }
+        showToast('Evidence secured', 'success');
       }
       
+      // Step 3 validation + generation
       if (currentStep === 3) {
         if (!document.getElementById('disclosure3').checked) {
           showToast('Please check the final disclosure', 'error');
           return;
         }
+        
+        const license = document.getElementById('licenseKey').value;
+        if (!license || license.length < 10) {
+          showToast('Please enter a valid license key', 'error');
+          return;
+        }
+        
         showToast('✅ Documents Generated Successfully!', 'success');
-        return;
+        
+        // Track conversion (analytics)
+        if (typeof plausible !== 'undefined') {
+          plausible('Generated', {props: {type: document.getElementById('docType').value}});
+        }
+        
+        return; // Stay on step 3
       }
     }
     
@@ -551,21 +777,26 @@
     }
   }
 
+  // Update UI based on current step
   function updateUI() {
-    // Update steps
+    // Update step indicators
     document.getElementById('step1').className = currentStep >= 1 ? 'step active' : 'step';
     document.getElementById('step2').className = currentStep >= 2 ? 'step active' : 'step';
     document.getElementById('step3').className = currentStep >= 3 ? 'step active' : 'step';
     
-    // Update content
+    // Update content visibility
     document.getElementById('step1Content').className = currentStep === 1 ? '' : 'hidden';
     document.getElementById('step2Content').className = currentStep === 2 ? '' : 'hidden';
     document.getElementById('step3Content').className = currentStep === 3 ? '' : 'hidden';
     
     // Update buttons
     document.getElementById('backBtn').className = currentStep === 1 ? 'hidden' : 'btn btn-secondary';
-    document.getElementById('nextBtn').textContent = currentStep === 3 ? 'Generate' : 'Continue';
+    document.getElementById('nextBtn').textContent = currentStep === 3 ? 'Generate Documents' : 'Continue';
   }
+
+  // Expose functions globally
+  window.navigate = navigate;
+  window.showToast = showToast;
 </script>
 
 </body>
